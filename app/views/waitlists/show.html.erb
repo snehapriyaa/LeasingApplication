@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Applicant:</strong>
+  <%= Applicant.find(@waitlist.applicant_id)[:name].to_s %>
+</p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @waitlist.datetime %>
+</p>
+
+<p>
+  <strong>Property:</strong>
+  <%= Property.find(@waitlist.property_id)[:name].to_s %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @waitlist.status %>
+</p>
+
+<%= link_to 'Edit', edit_waitlist_path(@waitlist) %> |
+<%= link_to 'Back', properties_path %>

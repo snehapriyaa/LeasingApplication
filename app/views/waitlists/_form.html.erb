@@ -1,0 +1,44 @@
+<%= form_with(model: waitlist) do |form| %>
+  <% if waitlist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(waitlist.errors.count, "error") %> prohibited this waitlist from being saved:</h2>
+
+      <ul>
+        <% waitlist.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>Continue to apply to get considered when the existing tenant moves out</p>
+  <% if current_applicant %>
+  <div class="field" style="display: none">
+    <%= form.label :applicant_id %>
+    <%= form.text_field :applicant_id, :value => current_applicant.id %>
+  </div>
+  <% else %>
+    <div class="field">
+      <%= form.label :applicant %>
+      <%= form.select :applicant_id, Applicant.all.map{|c| [c.name,c.id]}%>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :datetime %>
+    <%= form.date_select :datetime %>
+  </div>
+
+  <div class="field" >
+    <%= form.label :property_id %>
+    <%= form.number_field :property_id, :value => @waitlist.property_id.to_i %>
+  </div>
+
+  <div class="field" style="display: none">
+    <%= form.label :status %>
+    <%= form.text_field :status, :value => "pending" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

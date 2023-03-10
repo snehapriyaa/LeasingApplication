@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @property.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @property.address %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @property.size %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @property.start_date %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @property.fee %>
+</p>
+
+<p>
+  <strong>Rent:</strong>
+  <%= @property.rent %>
+</p>
+
+<p>
+  <strong>Pets allowed:</strong>
+  <%= @property.pets_allowed %>
+</p>
+
+<p>
+  <strong>In unit laundry:</strong>
+  <%= @property.in_unit_laundry %>
+</p>
+
+<p>
+  <strong>Parking:</strong>
+  <%= @property.parking %>
+</p>
+
+<p>
+  <strong>Terms available:</strong>
+  <%= @property.terms_available %>
+</p>
+
+<% if @property.applicant_id != nil %>
+  <p>
+    <strong>Tenant:</strong>
+    <%= Applicant.find(@property.applicant_id)[:name] %>
+  </p>
+
+<% else %>
+  <% if current_applicant %>
+    <p><%= link_to 'Apply', new_request_url(propertyid: @property.id) %></p>
+  <% end %>
+<% end %>
+<% if current_agent %>
+  <%= link_to 'Edit', edit_property_path(@property) %> |
+<% end %>
+<%= link_to 'Back', properties_path %>

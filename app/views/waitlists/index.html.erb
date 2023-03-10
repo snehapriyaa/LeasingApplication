@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Waitlists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Applicant</th>
+      <th>Datetime</th>
+      <th>Property</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @waitlists.each do |waitlist| %>
+      <tr>
+        <td><%= Applicant.find(waitlist.applicant_id)[:name].to_s %></td>
+        <td><%= waitlist.datetime %></td>
+        <td><%= Property.find(waitlist.property_id)[:name].to_s %></td>
+        <td><%= waitlist.status %></td>
+        <% if (waitlist.status == "pending")%>
+        <% if(current_agent || current_admin) %>
+          <td><%= link_to 'Accept', waitlistacceptstatus_path(:request_id => waitlist.id) %></td>
+          <td><%= link_to 'remove', waitlistrejectstatus_path(:request_id => waitlist.id) %></td>
+        <% elsif(current_applicant) %>
+          <td><%= link_to 'withdraw', waitlistwithdrawstatus_path(:request_id => waitlist.id) %></td>
+        <% end %>
+        <% else %>
+          <% if(current_agent || current_admin) %>
+            <td><p>no action</p></td>
+            <td><p>no action</p></td>
+          <% elsif(current_applicant) %>
+            <td><p>no action</p></td>
+          <% end %>
+        <% end %>
+        <td><%= link_to 'Show', waitlist %></td>
+        <td><%= link_to 'Edit', edit_waitlist_path(waitlist) %></td>
+        <td><%= link_to 'Destroy', waitlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

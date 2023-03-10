@@ -1,0 +1,30 @@
+<h1>Availabilities</h1>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        padding: 5px;
+    }
+</style>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Available</th>
+    <th>Total</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @properties.each do |property| %>
+    <tr>
+      <td><%= property.name %></td>
+      <td><%= property.total - property.taken %></td>
+      <td><%= property.total %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

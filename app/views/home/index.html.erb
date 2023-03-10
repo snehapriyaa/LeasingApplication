@@ -1,0 +1,58 @@
+<p id=”notice”><%= notice %></p>
+<h1>Leasing Agency System</h1>
+<p>Book your next apartment here!</p>
+
+<% if current_applicant %>
+  Logged in as <%= current_applicant.name %>
+  <br>
+  <%= link_to "View your applications", requests_path %>
+  <br>
+  <%= link_to "Properties occupied", rented_index_path %>
+  <br>
+  <%= link_to "View your waitlisted applications", waitlists_path %>
+  <br>
+
+
+<% elsif current_agent %>
+  Logged in as <%= current_agent.name %>
+  <br>
+  <%= link_to "Edit Profile", edit_agent_url(current_agent) %>
+  <br>
+  <%= link_to "View all applications", requests_path %>
+  <br>
+  <%= link_to "View all waitlisted applications", waitlists_path %>
+  <br>
+  <%= link_to "Edit Profile", edit_agent_url(current_agent) %>
+  <br>
+
+<% elsif current_admin %>
+  Logged in as <%= current_admin.name %>
+  <br>
+  <%= link_to "Edit Profile", edit_admin_url(current_admin) %>
+  <br>
+  <%= link_to "View all applicants", applicants_path %>
+  <br>
+  <%= link_to "View all waitlisted applications", waitlists_path %>
+  <br>
+  <%= link_to "View all leasing agents", agents_path %>
+  <br>
+  <%= link_to "View all applications", requests_path %>
+  <br>
+<% else %>
+  <%= link_to "New Applicant", signup_path %> |
+  <%= link_to "New Agent", signupasagent_path %> |
+  <%= link_to "Login", login_path %>
+  <br>
+
+<% end %>
+
+<% if current_applicant or current_admin or current_agent %>
+
+  <br>
+  <%= link_to "View all properties", properties_path %>
+  <br>
+  <%= link_to "View availabilities", availability_index_path %>
+  <br>
+  <%= link_to "Logout", logout_path %>
+  <br>
+<% end %>

@@ -1,0 +1,45 @@
+<%= form_with(model: request) do |form| %>
+  <% if request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(request.errors.count, "error") %> prohibited this request from being saved:</h2>
+
+      <ul>
+        <% request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" style="display: none">
+    <%= form.label :status %>
+    <%= form.text_field :status, :value => "pending" %>
+  </div>
+  <% if current_applicant %>
+    <div class="field" style="display: none">
+      <%= form.label :applicant_id %>
+      <%= form.number_field :applicant_id, :value => current_applicant.id %>
+    </div>
+  <% else %>
+    <div class="field">
+      <%= form.label :applicant_id %>
+      <%= form.select :applicant_id, Applicant.all.map{|c| [c.name,c.id]}%>
+    </div>
+    <%end %>
+  <% if !params[:propertyid] %>
+    <div class="field">
+      <%= form.label :property_id %>
+      <%= form.select :property_id, Property.select{|c| c.applicant_id == nil}.map{|c| [c.name,c.id]} %>
+    </div>
+    <%else %>
+    <div class="field" style="display: none" >
+      <%= form.label :property_id %>
+      <%= form.number_field :property_id, :value => params[:propertyid] %>
+    </div>
+  <% end %>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

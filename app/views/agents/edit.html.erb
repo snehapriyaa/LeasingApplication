@@ -1,0 +1,10 @@
+<% if current_admin|| current_agent %>
+
+  <h1>Editing Agent</h1>
+
+  <%= render 'form', agent: @agent %>
+
+  <%= link_to 'Show', @agent %><% if (current_admin )%>|<%= link_to 'Back', agents_path %><% end %>
+<% else %>
+  <p><strong>Access Denied</strong></p>
+<% end %>

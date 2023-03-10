@@ -1,0 +1,5 @@
+<h1>Editing Application</h1>
+
+<%= render 'form', request: @request %>
+
+<%= link_to 'Show', @request %><% if (current_admin )%> |<%= link_to 'Back', requests_path %><% end %>

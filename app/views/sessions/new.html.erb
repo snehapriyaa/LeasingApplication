@@ -1,0 +1,30 @@
+<p id="alert"><%= alert %></p>
+<h1>Login</h1>
+<%= form_tag sessions_path do |form| %>
+  <div class="field">
+    <%= label_tag :email %>
+    <%= text_field_tag :email %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+  </div>
+
+  <div>
+    <%= radio_button_tag(:whoami, "applicant") %> Applicant |
+    <%#= label_tag(:label_applicant, "Applicant") %>
+    <%= radio_button_tag(:whoami, "agent") %> Agent |
+    <%#= label_tag(:label_agent, "Agent") %>
+    <%= radio_button_tag(:whoami, "admin") %> Admin
+    <%#= label_tag(:label_admin, "Admin") %>
+  </div>
+<br>
+
+  <div class="actions">
+    <%= submit_tag "Login" %>
+or
+    <%= submit_tag "Google Login", name: "Gbtn",value: "Google Login" %>
+  </div>
+
+<% end %>

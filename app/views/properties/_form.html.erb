@@ -1,0 +1,67 @@
+<%= form_with(model: property) do |form| %>
+  <% if property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+        <% property.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, :required => 'required' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, :required => 'required' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :size %>
+    <%= form.text_field :size, :required => 'required' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date, :required => 'required' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fee %>
+    <%= form.text_field :fee, :required => 'required' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rent %>
+    <%= form.text_field :rent, :required => 'required' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pets_allowed %>
+    <%= form.check_box :pets_allowed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :in_unit_laundry %>
+    <%= form.check_box :in_unit_laundry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :parking %>
+    <%= form.check_box :parking %>
+  </div>
+
+  <div class="field">
+    <%= form.label :terms_available %>
+    <%= form.text_field :terms_available, :required => 'required' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,42 @@
+  <p id="notice"><%= notice %></p>
+
+  <h1>Applications</h1>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Applicant</th>
+      <th>Property</th>
+      <th>Status</th>
+      <th>Action</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @requests.each do |request| %>
+      <tr>
+
+        <td><%= Applicant.find(request.applicant_id)[:name] %></td>
+        <td><%= Property.find(request.property_id)[:name] %></td>
+        <td><%= request.status %></td>
+        <% if request.status == "pending" and (current_agent || current_admin)%>
+          <td><%= link_to 'Accept', acceptstatus_path(:request_id => request.id) %>
+            /<%= link_to 'Reject', rejectstatus_path(:request_id => request.id) %></td>
+        <% elsif request.status == "pending" %>
+            <td><%= link_to 'Withdraw', withdrawstatus_path(:request_id => request.id) %></td>
+        <% else %>
+          <td>Decision reached</td>
+        <% end %>
+        <td><%= link_to 'Show', request %></td>
+        <% if current_admin %>
+        <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+          </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <br>
+<%if !current_applicant %>
+    <%= link_to 'New Application', new_request_path%>
+  <% end %>

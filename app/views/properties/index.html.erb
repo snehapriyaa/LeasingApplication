@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Properties</h1>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        padding: 5px;
+    }
+</style>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Size</th>
+    <th>Start date</th>
+    <th>Fee</th>
+    <th>Rent</th>
+    <th>Pets allowed</th>
+    <th>In unit laundry</th>
+    <th>Parking</th>
+    <th>Terms available</th>
+    <th>Tenant</th>
+    <th>Waitlists</th>
+    <th colspan="5"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @properties.each do |property| %>
+    <tr>
+      <td><%= property.name %></td>
+      <td><%= property.address %></td>
+      <td><%= property.size %></td>
+      <td><%= property.start_date %></td>
+      <td><%= property.fee %></td>
+      <td><%= property.rent %></td>
+      <td><%= property.pets_allowed %></td>
+      <td><%= property.in_unit_laundry %></td>
+      <td><%= property.parking %></td>
+      <td><%= property.terms_available %></td>
+      <% if property.applicant_id != nil %>
+        <td><%= Applicant.find(property.applicant_id)[:name] %></td>
+      <% else %>
+        <td>None</td>
+      <% end %>
+      <td><%= Waitlist.all.select { |x| (x.property_id.to_i == property.id.to_i) }.count().to_i %></td>
+      <td><%= link_to 'Show', property %></td>
+      <% if current_agent || current_admin %>
+        <td><%= link_to 'Edit', edit_property_path(property) %></td>
+        <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if property.applicant_id != nil %>
+          <td><%= link_to 'Checkout', checkout_path(propertyid: property.id) %></td>
+        <% end %>
+      <% end %>
+
+      <% if property.applicant_id == nil %>
+        <td><p>No occupant</p></td>
+        <td><%= link_to 'Apply', new_request_url(propertyid: property.id) %></td>
+        <%else%>
+        <td><%= link_to 'Applywaitlist', new_waitlist_path(propertyid: property.id) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if current_agent || current_admin%>
+  <%= link_to 'New Property', new_property_path %>
+<% end %>

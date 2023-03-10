@@ -1,0 +1,11 @@
+<% if current_applicant and current_applicant.id == @applicant.id %>
+  <%= render 'showpartial', applicant: @applicant %>
+
+<% elsif current_admin %>
+  <%= render 'showpartial', applicant: @applicant %>
+
+<% else %>
+  <h1>Access denied</h1>
+<% end %>
+
+

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Properties</h1>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        padding: 5px;
+    }
+</style>
+<% if current_admin or current_agent%>
+  <p>You have rented no properties</p>
+<% elsif @properties.empty? %>
+  <p>You rent no properties right now</p>
+<% else %>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Rent</th>
+    <th>Pets allowed</th>
+    <th>In unit laundry</th>
+    <th>Parking</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @properties.each do |property| %>
+    <tr>
+      <td><%= property.name %></td>
+      <td><%= property.address %></td>
+      <td><%= property.rent %></td>
+      <td><%= property.pets_allowed %></td>
+      <td><%= property.in_unit_laundry %></td>
+      <td><%= property.parking %></td>
+      <td><%= link_to 'Move out', checkout_path(propertyid: property.id) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
+<br>
